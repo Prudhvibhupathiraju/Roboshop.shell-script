@@ -22,7 +22,7 @@ VALIDATE(){
     fi
 }
 
-if [ $id -ne 0 ]
+if [ $ID -ne 0 ]
 then
 echo -e "$R ERROR :: you are not root user $N"
 exit 1
@@ -40,14 +40,20 @@ dnf module enable nodejs:18 -y &>> $LOGFILE
 VALIDATE $? "enabling NodeJS 18"
 
 dnf install nodejs -y &>> $LOGFILE
-
+ 
 VALIDATE $? "Installing NodeJS"
 
-useradd roboshop &>> $LOGFILE
+id roboshop
+if [ $? -ne 0 ]
+then
+   useradd roboshop
+   VALIDATE $? "Creation of roboshop user"
+else
+   echo -e "user 'roboshop' already exists .... $Y SKIPPING $N"
 
-VALIDATE $? "Adding User roboshop"
+fi
 
-mkdir /app &>> $LOGFILE
+mkdir -p /app &>> $LOGFILE
 
 VALIDATE $? "Creating directory :app"
 
@@ -57,7 +63,7 @@ VALIDATE $? "Downloading the application code"
 
 cd /app 
 
-unzip /tmp/catalogue.zip &>> $LOGFILE
+unzip -o /tmp/catalogue.zip &>> $LOGFILE
 
 VALIDATE $? "Unzipping the code the 'app' directory"
 
@@ -65,7 +71,7 @@ npm install &>> $LOGFILE
 
 VALIDATE $? "downloading the dependencies"
 
-cp catalogue.service /etc/systemd/system/catalogue.service &>> $LOGFILE
+cp /home/centos/Roboshop.shell-script/catalogue.service /etc/systemd/system/catalogue.service &>> $LOGFILE
 
 VALIDATE $? "Setting up SystemD Catalogue Service"
 
