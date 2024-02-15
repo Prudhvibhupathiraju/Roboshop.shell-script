@@ -43,7 +43,7 @@ dnf install nodejs -y &>> $LOGFILE
  
 VALIDATE $? "Installing NodeJS"
 
-id roboshop
+id roboshop &>> $LOGFILE
 if [ $? -ne 0 ]
 then
    useradd roboshop
@@ -87,7 +87,7 @@ systemctl start catalogue &>> $LOGFILE
 
 VALIDATE $? "Starting the Catalogue Service"
 
-cp mongo.repo /etc/yum.repos.d/mongo.repo &>> $LOGFILE
+cp /home/centos/Roboshop.shell-script/mongo.repo /etc/yum.repos.d/mongo.repo &>> $LOGFILE
 
 VALIDATE $? "Setting up MongoDB repo"
 
