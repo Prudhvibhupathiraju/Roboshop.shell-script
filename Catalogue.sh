@@ -95,7 +95,7 @@ dnf install mongodb-org-shell -y &>> $LOGFILE
 
 VALIDATE $? "Installing MongoDB client"
 
-mongo --host mongodb.bhpr.online </app/schema/catalogue.js
+mongo --host mongodb.bhpr.online </app/schema/catalogue.js &>> $LOGFILE
 
 VALIDATE $? "Loading schema"
 
