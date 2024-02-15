@@ -10,7 +10,7 @@ N="\e[0m"
 TIMESTAMP=$(date +%F-%H-%M-%S)
 LOGFILE="/tmp/$0-$TIMESTAMP.log"
 
-echo -e "the script has started executing at $Y $TIMESTAMP $N" &>> $LOGFILE
+echo -e "the script has started executing at $Y  $TIMESTAMP  $N" &>> $LOGFILE
 
 VALIDATE(){
     if [ $1 -ne 0 ]
