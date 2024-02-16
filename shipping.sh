@@ -70,6 +70,8 @@ VALIDATE $? "Renaming the .jar file"
 
 cp /home/centos/Roboshop.shell-script/shipping.service /etc/systemd/system/shipping.service &>> $LOGFILE
 
+VALIDATE $? "Setting up the shipping.service"
+
 systemctl daemon-reload &>> $LOGFILE
 
 VALIDATE $? "Loading the service"
