@@ -15,25 +15,24 @@ Instance_type="t3.small"
 else
 Instance_type="t2.micro"
 fi
-
 IP_ADDRESS=$(aws ec2 run-instances --image-id $AMI --instance-type $Instance_type --security-group-ids $SG --tag-specifications "ResourceType=instance,Tags=[{Key=Name,Value=$i}]" --query 'Instances[0].PrivateIpAddress' --output text) 
 echo "$i : $IP_ADDRESS"
-    aws route53 change-resource-record-sets \
-    --hosted-zone-id $ZONE_ID \
-    --change-batch '
-    {
-        "Comment": "Creating a record set for cognito endpoint"
-        ,"Changes": [{
-        "Action"              : "CREATE"
-        ,"ResourceRecordSet"  : {
-            "Name"              : "'$i'.'$DOMAIN_NAME'"
-            ,"Type"             : "A"
-            ,"TTL"              : 1
-            ,"ResourceRecords"  : [{
-                "Value"         : "'$IP_ADDRESS'"
-            }]
-        }
+aws route53 change-resource-record-sets \
+  --hosted-zone-id $ZONE_ID \
+  --change-batch '
+  {
+    "Comment": "creating a record set for cognito endpoint"
+    ,"Changes": [{
+      "Action"              : "CREATE"
+      ,"ResourceRecordSet"  : {
+        "Name"              : "' $i'.'$DOMAIN_NAME'"
+        ,"Type"             : "A"
+        ,"TTL"              : 1
+        ,"ResourceRecords"  : [{
+            "Value"         : "'$IP_ADDRESS'"
         }]
-    }
-        '
+      }
+    }]
+  }
+  '
 done
