@@ -15,12 +15,8 @@ Instance_type="t3.small"
 else
 Instance_type="t2.micro"
 fi
-if [ $i == "MongoDB" ]
-then
-IP_ADDRESS=$(aws ec2 run-instances --image-id $AMI --instance-type $Instance_type --security-group-ids $SG --tag-specifications "ResourceType=instance,Tags=[{Key=Name,Value=$i}]" --query 'Instances[0].PublicIpAddress' --output text)
-else
+
 IP_ADDRESS=$(aws ec2 run-instances --image-id $AMI --instance-type $Instance_type --security-group-ids $SG --tag-specifications "ResourceType=instance,Tags=[{Key=Name,Value=$i}]" --query 'Instances[0].PrivateIpAddress' --output text) 
-fi
 echo "$i : $IP_ADDRESS"
     aws route53 change-resource-record-sets \
     --hosted-zone-id $ZONE_ID \
