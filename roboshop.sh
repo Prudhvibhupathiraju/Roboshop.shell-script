@@ -6,11 +6,12 @@ Instances=("MongoDB" "Redis" "MySQL" "RabbitMQ" "Catalogue" "Cart" "User" "Shipp
 
 for i in ${Instances[@]}
 do
+echo "instance is $i"
 if [ $i == "MongoDB" ]  || [ $i == "MySQL" ]  || [ $i == "Shipping" ]
 then
 Instance_type="t3.small"
 else
 Instance_type="t2.micro"
 fi
-aws ec2 run-instances --image-id ami-0f3c7d07486cad139 --instance-type $Instance_type --security-group-ids sg-034af918babda9baf
+aws ec2 run-instances --image-id ami-0f3c7d07486cad139 --instance-type $Instance_type --security-group-ids sg-034af918babda9baf --tag-specifications "ResourceType=instance,Tags=[{Key=Name,Value=$i}]"
 done
