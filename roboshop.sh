@@ -2,7 +2,7 @@
 
 AMI=ami-0f3c7d07486cad139
 SG=sg-034af918babda9baf
-Instances=("MongoDB" "Redis" "MySQL" "RabbitMQ" "Catalogue" "Cart" "User" "Shipping" "Payments" "Dispatch" "Web")
+Instances=("mongodb" "redis" "mysql" "rabbitmq" "catalogue" "cart" "user" "shipping" "payments" "dispatch" "web")
 ZONE_ID=Z04351902WY9G4CTL518C
 DOMAIN_NAME=bhpr.online
 
